@@ -5,12 +5,22 @@ module.exports = function(environment) {
     modulePrefix: 'denote',
     environment: environment,
     baseURL: '/',
-    locationType: 'auto',
+    locationType: process.env.EMBER_CLI_ELECTRON ? 'hash' : 'auto',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
       }
+    },
+
+    contentSecurityPolicy: {
+      'default-src': "'none'",
+      'script-src': "'self' 'unsafe-inline'",
+      'font-src': "'self'",
+      'connect-src': "'self'",
+      'img-src': "'self' data:",
+      'style-src': "'self' 'unsafe-inline'",
+      'media-src': "'self'"
     },
 
     APP: {
