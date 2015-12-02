@@ -1,5 +1,7 @@
-var BrowserWindow = require('browser-window');
-var app = require('app');
+const BrowserWindow = require('browser-window');
+const app = require('app');
+const ipc = require('ipc');
+const fs = require('fs');
 var mainWindow = null;
 
 app.on('window-all-closed', function onWindowAllClosed() {
@@ -25,5 +27,14 @@ app.on('ready', function onReady() {
 
     mainWindow.on('closed', function onClosed() {
         mainWindow = null;
+    });
+
+    ipc.on('save-file', function (event, file) {
+      const path = app.getPath('userDesktop') + '/denote-test-file'
+      try {
+        fs.writeFileSync(path, file);
+      } catch (error) {
+        throw error;
+      }
     });
 });
