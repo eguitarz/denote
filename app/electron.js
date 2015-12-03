@@ -1,9 +1,18 @@
 const BrowserWindow = require('browser-window');
 const app = require('app');
 const ipc = require('ipc');
-
+const electronLocalshortcut = require('electron-localshortcut');
 const fs = require('fs');
 var mainWindow = null;
+
+function saveFile(event, file) {
+  const path = app.getPath('userDesktop') + '/denote-test-file'
+  try {
+    fs.writeFileSync(path, file);
+  } catch (error) {
+    throw error;
+  }
+};
 
 app.on('window-all-closed', function onWindowAllClosed() {
     if (process.platform !== 'darwin') {
@@ -30,12 +39,15 @@ app.on('ready', function onReady() {
         mainWindow = null;
     });
 
-    ipc.on('save-file', function (event, file) {
-      const path = app.getPath('userDesktop') + '/denote-test-file'
-      try {
-        fs.writeFileSync(path, file);
-      } catch (error) {
-        throw error;
-      }
+    electronLocalshortcut.register(mainWindow, 'command+s', function () {
+      mainWindow.webContents.send('global-shortcut-save-file');
     });
+
+    ipc.on('save-file', saveFile);
+});
+
+app.on('will-quit', function() {
+  
+  // Unregister all shortcuts.
+  globalShortcut.unregisterAll();
 });

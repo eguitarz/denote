@@ -5,14 +5,12 @@ body, html {
 }
 
 .editor-container {
-  // position: relative;
   display: flex;
-  width: 100%;
-  // height: 80%
+  width: 50%;
+  height: 80%;
 }
 
-#editor {
-  // position: absolute;
+.text-editor {
   width: 100%;
-  height: 480px;
+  height: 100%;
 }

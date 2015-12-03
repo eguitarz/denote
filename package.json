@@ -40,5 +40,8 @@
     "ember-electron": "0.1.7",
     "ember-export-application-global": "^1.0.4"
   },
-  "main": "electron.js"
+  "main": "app/electron.js",
+  "dependencies": {
+    "electron-localshortcut": "^0.6.0"
+  }
 }
