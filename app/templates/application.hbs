@@ -1,2 +1,7 @@
-{{text-editor contenteditable=true}}
+<div class="editor-container">
+{{text-editor
+  contenteditable=true
+  on-save="saveFile"
+}}
+</div>
 {{outlet}}

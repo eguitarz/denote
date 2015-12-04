@@ -1,4 +1,5 @@
 import Ember from 'ember';
+const { computed } = Ember;
 const ipc = require('electron').ipcRenderer;
 
 export default Ember.Component.extend({
@@ -6,17 +7,19 @@ export default Ember.Component.extend({
   attributeBindings: ['contentEditable'],
   contentEditable: 'true',
 
+  html() {
+    return this.$().html();
+  },
+
   didInsertElement() {
     ipc.on('global-shortcut-save-file', () => {
-      console.log('recieved global-shortcut-save-file');
       this.send('save');
     });
   },
 
   actions: {
     save() {
-      console.log('saving', this.$().text());
-      ipc.send('save-file', this.$().text());
+      this.sendAction('on-save', this);
     }
   }
 });

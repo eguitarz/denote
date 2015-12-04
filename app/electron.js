@@ -29,7 +29,7 @@ app.on('ready', function onReady() {
     delete mainWindow.module;
 
     if (process.env.ELECTRON_ENV === 'development') {
-        //mainWindow.openDevTools();
+        mainWindow.openDevTools();
         mainWindow.loadURL('http://localhost:5000');
     } else {
         mainWindow.loadURL('file://' + __dirname + '/../dist/index.html');
@@ -43,11 +43,15 @@ app.on('ready', function onReady() {
       mainWindow.webContents.send('global-shortcut-save-file');
     });
 
+    electronLocalshortcut.register(mainWindow, 'ctrl+n', function () {
+      mainWindow.webContents.send('global-shortcut-create-note');
+    });
+
     ipc.on('save-file', saveFile);
 });
 
 app.on('will-quit', function() {
-  
+
   // Unregister all shortcuts.
   globalShortcut.unregisterAll();
 });

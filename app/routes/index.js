@@ -1,11 +1,11 @@
 import Ember from 'ember';
+const ipc = require('electron').ipcRenderer;
 
 export default Ember.Route.extend({
-  didInsertElement: function() {
-    console.log('test');
-    // var editor = ace.edit("editor");
-  },
-  activate: function() {
-    // var editor = ace.edit("editor");
+  actions: {
+    saveFile(editor) {
+      console.log('saving', editor.html());
+      ipc.send('save-file', editor.html());
+    }
   }
 });
