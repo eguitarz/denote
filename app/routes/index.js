@@ -3,9 +3,12 @@ const ipc = require('electron').ipcRenderer;
 
 export default Ember.Route.extend({
   actions: {
-    saveFile(editor) {
-      console.log('saving', editor.html());
-      ipc.send('save-file', editor.html());
+    save(html) {
+      console.log('saving', html);
+      ipc.send('save-file', html);
+    },
+    createNote(range) {
+      console.log('createing note for selected ', range);
     }
   }
 });

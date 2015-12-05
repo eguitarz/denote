@@ -1,7 +1,6 @@
-<div class="editor-container">
 {{text-editor
   contenteditable=true
-  on-save="saveFile"
+  on-save="save"
+  on-create-note="createNote"
 }}
-</div>
 {{outlet}}

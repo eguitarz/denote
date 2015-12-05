@@ -28,9 +28,10 @@ app.on('ready', function onReady() {
 
     delete mainWindow.module;
 
+    // TODO do not open DevTools
+    mainWindow.openDevTools();
     if (process.env.ELECTRON_ENV === 'development') {
-        mainWindow.openDevTools();
-        mainWindow.loadURL('http://localhost:5000');
+        mainWindow.loadURL('http://localhost:4200');
     } else {
         mainWindow.loadURL('file://' + __dirname + '/../dist/index.html');
     }
@@ -43,7 +44,7 @@ app.on('ready', function onReady() {
       mainWindow.webContents.send('global-shortcut-save-file');
     });
 
-    electronLocalshortcut.register(mainWindow, 'ctrl+n', function () {
+    electronLocalshortcut.register(mainWindow, 'command+shift+n', function () {
       mainWindow.webContents.send('global-shortcut-create-note');
     });
 
@@ -53,5 +54,5 @@ app.on('ready', function onReady() {
 app.on('will-quit', function() {
 
   // Unregister all shortcuts.
-  globalShortcut.unregisterAll();
+  electronLocalshortcut.unregisterAll();
 });
