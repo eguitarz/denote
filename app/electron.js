@@ -41,11 +41,11 @@ app.on('ready', function onReady() {
     });
 
     electronLocalshortcut.register(mainWindow, 'command+s', function () {
-      mainWindow.webContents.send('global-shortcut-save-file');
+      mainWindow.webContents.send('local-shortcut-save-file');
     });
 
     electronLocalshortcut.register(mainWindow, 'command+shift+n', function () {
-      mainWindow.webContents.send('global-shortcut-create-note');
+      mainWindow.webContents.send('local-shortcut-create-side-note');
     });
 
     ipc.on('save-file', saveFile);

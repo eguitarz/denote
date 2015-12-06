@@ -3,36 +3,37 @@ import moment from 'moment';
 const { computed } = Ember;
 const ipc = require('electron').ipcRenderer;
 
+const SAVING_GAP_TIME = 3000;
+
 export default Ember.Component.extend({
   classNames: ['text-editor-wrapper'],
 
   didInsertElement() {
-    let editor = new MediumEditor(this.$('.text-editor'));
-    this.set('editor', editor);
-    this.set('lastSavedAt', +moment());
+    const EDITOR_CLASS = '.text-editor';
+    let editor = this.attrs.setEditor(this.$(EDITOR_CLASS));
+
     editor.subscribe('editableInput', (event, editable) => {
-      const now = moment();
-      if (now.diff(this.get('lastSavedAt')) > 5000 ) {
-        this.send('save', event, editable);
+      let lastSavedAt = this.attrs.lastSavedAt || 0;
+      if (moment().diff(lastSavedAt) > SAVING_GAP_TIME ) {
+        this.send('handleSave', event.timeStamp, $(editable).html());
       }
     });
-    ipc.on('global-shortcut-save-file', () => {
-      this.send('save');
+
+    ipc.on('local-shortcut-save-file', () => {
+      this.send('handleSave', +moment(), this.$(EDITOR_CLASS).html());
     });
-    ipc.on('global-shortcut-create-note', () => {
-      this.send('createNote');
+    ipc.on('local-shortcut-create-side-note', () => {
+      this.send('handleCreateSideNote', +moment(), '<div>This is a side note</div>');
     });
   },
 
   actions: {
-    save(event, editable) {
-      this.set('lastSavedAt', event.timeStamp);
-      this.sendAction('on-save', $(editable).html());
+    handleSave(timestamp, html) {
+      this.attrs.save(html);
+      this.attrs.lastSavedAt = timestamp;
     },
-
-    createNote() {
-      const range = window.getSelection().getRangeAt(0);
-      this.sendAction('on-create-note', range);
+    handleCreateSideNote(timestamp, html) {
+      this.attrs.createSideNote(timestamp, html);
     }
   }
 });
