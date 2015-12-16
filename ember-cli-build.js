@@ -23,6 +23,8 @@ module.exports = function(defaults) {
   app.import('bower_components/medium-editor/dist/js/medium-editor.js');
   app.import('bower_components/medium-editor/dist/css/themes/default.min.css');
   app.import('bower_components/medium-editor/dist/css/medium-editor.min.css');
+  app.import('bower_components/rangy/rangy-core.min.js');
+  app.import('bower_components/rangy/rangy-classapplier.min.js');
 
   return app.toTree();
 };

@@ -23,7 +23,11 @@ export default Ember.Component.extend({
       this.send('handleSave', +moment(), this.$(EDITOR_CLASS).html());
     });
     ipc.on('local-shortcut-create-side-note', () => {
-      this.send('handleCreateSideNote', +moment(), '<div>This is a side note</div>');
+      let id = 0;
+      this.send('handleCreateSideNote',
+                editor,
+                +moment(),
+                id);
     });
   },
 
@@ -32,8 +36,8 @@ export default Ember.Component.extend({
       this.attrs.save(html);
       this.attrs.lastSavedAt = timestamp;
     },
-    handleCreateSideNote(timestamp, html) {
-      this.attrs.createSideNote(timestamp, html);
+    handleCreateSideNote(editor, timestamp, id) {
+      this.attrs.createSideNote(timestamp, id);
     }
   }
 });
