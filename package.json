@@ -42,7 +42,8 @@
     "ember-electron": "0.1.7",
     "ember-export-application-global": "^1.0.4",
     "ember-moment": "4.1.0",
-    "ember-route-action-helper": "0.2.0"
+    "ember-route-action-helper": "0.2.0",
+    "ember-trix-editor": "1.0.5"
   },
   "main": "app/electron.js",
   "dependencies": {

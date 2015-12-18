@@ -3,5 +3,7 @@
     {{{sideNote.html}}}
   </div>
 {{else}}
-  <div id="side-note-default-editor" contenteditable="true"></div>
+  {{trix-editor
+    placeholder="create side note"
+  }}
 {{/each}}

@@ -13,27 +13,12 @@ export default Ember.Route.extend({
   },
 
   actions: {
-    setEditor(element) {
-      let editor = new MediumEditor(element, {
-        buttonLabels: 'fontawesome', // use font-awesome icons for other buttons
-      });
-      set(this, 'editor', editor);
-      return editor;
-    },
-    save(html) {
+    save(event) {
+      let editor = event.target.editor;
+      let html = editor.getDocument().toString();
+      set(this, 'lastSavedAt', +moment());
       console.log('saving', html);
       ipc.send('save-file', html);
-    },
-    createSideNote(timestamp, selection) {
-      let controller = this.controller;
-      controller.get('model.sideNotes').pushObject({
-        selection: selection,
-        html: '<div>This is a side note</div>',
-        createdAt: +moment()
-      });
-      window.s = selection;
-      console.log(controller.get('model'));
-      // console.log('createing side note for selected ', range, html);
     }
   }
 });

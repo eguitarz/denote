@@ -2,7 +2,6 @@
   "predef": [
     "document",
     "window",
-    "MediumEditor",
     "-Promise"
   ],
   "browser": true,
