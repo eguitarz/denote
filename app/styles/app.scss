@@ -2,6 +2,7 @@
 
 $fonts-main: "Lucida Grande", "Helvetica Neue", Helvetica, Sans;
 $color-concrete: #F3F3F3;
+$color-iceberg: #cceeef;
 
 body, html {
   padding: 0;
@@ -43,8 +44,39 @@ trix-editor {
   padding: 1rem 0;
   border: 0;
 
-  & > *:hover {
+  div, li, pre, blockquote {
+    position: relative;
+    transition: all 100ms;
+  }
+
+  pre {
+    line-height: 1.4em;
+  }
+
+  & > div:hover,
+  & li:hover,
+  & pre:hover,
+  & blockquote:hover {
     background-color: $color-concrete;
+  }
+
+  & > div:hover:after,
+  & li:hover:after,
+  & pre:hover:after,
+  & blockquote:hover:after {
+    font-family: $fonts-main;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: #000;
+    content: '+';
+    text-align: center;
+    vertical-align: center;
+    width: 1.1em;
+    height: 1.1em;
+    line-height: 1.1em;
+    background-color: $color-iceberg;
+    cursor: pointer;
   }
 }
 
