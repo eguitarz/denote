@@ -1,7 +1,7 @@
 {{text-editor
-  createSideNote=(route-action "createSideNote")
+  newComment=(route-action "newComment")
 }}
-{{side-note-page
-  page=model
+{{note-comments
+  comments=model.comments
 }}
 {{outlet}}

@@ -1,37 +1,27 @@
 import Ember from 'ember';
 const ipc = require('electron').ipcRenderer;
 
-const { set, RSVP } = Ember;
+const { set, get, RSVP } = Ember;
 const { hash } = RSVP;
 
 export default Ember.Route.extend({
   model() {
     return {
-      mainContent: '',
-      sideNotes: []
+      notes: [],
+      comments: []
     };
   },
 
   actions: {
-    save(event) {
-      let editor = event.target.editor;
-      let html = editor.getDocument().toString();
-      set(this, 'lastSavedAt', +moment());
-      console.log('saving', html);
-      ipc.send('save-file', html);
+    newComment(blockIndex) {
+      let editor = $('.text-editor trix-editor')[0].editor;
+      let document = editor.getDocument();
+      let block = document.getBlockAtIndex(blockIndex);
+      console.log('add comment for block at ', blockIndex, block);
+
+      let comments = get(this, 'controller.model.comments');
+      console.log(comments);
+      comments.pushObject({html: block.toString()});
     }
   }
 });
-
-function genId()
-{
-    const ID_LENGTH = 4;
-    let output = [];
-    let source = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-    for( var i=0; i < ID_LENGTH; i++ ) {
-      output += source.charAt(Math.floor(Math.random() * source.length));
-    }
-
-    return output;
-}

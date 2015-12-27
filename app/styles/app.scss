@@ -2,7 +2,8 @@
 
 $fonts-main: "Lucida Grande", "Helvetica Neue", Helvetica, Sans;
 $color-concrete: #F3F3F3;
-$color-iceberg: #cceeef;
+$color-neptune: #78B8BA;
+$color-smalt-blue: #4F9092;
 
 body, html {
   padding: 0;
@@ -23,9 +24,9 @@ body, html {
   width: 80%;
   height: 100%;
   border-right: 1px solid #f8f8f8;
-  padding: 0 1rem;
 
-  & > .ember-view {
+  trix-toolbar {
+    padding-left: 1rem;
   }
 }
 
@@ -41,10 +42,10 @@ trix-toolbar {
 }
 
 trix-editor {
-  padding: 1rem 0;
+  padding: 1rem 0 1rem 1rem;
   border: 0;
 
-  div, li, pre, blockquote {
+  div, li, pre, blockquote, h1, h2, h3 {
     position: relative;
     transition: all 100ms;
   }
@@ -56,37 +57,45 @@ trix-editor {
   & > div:hover,
   & li:hover,
   & pre:hover,
+  & h1:hover,
+  & h2:hover,
+  & h3:hover,
   & blockquote:hover {
     background-color: $color-concrete;
   }
 
-  & > div:hover:after,
-  & li:hover:after,
-  & pre:hover:after,
-  & blockquote:hover:after {
-    font-family: $fonts-main;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    color: #000;
-    content: '+';
-    text-align: center;
-    vertical-align: center;
-    width: 1.1em;
-    height: 1.1em;
-    line-height: 1.1em;
-    background-color: $color-iceberg;
-    cursor: pointer;
-  }
 }
 
-.side-note-page {
+.comments {
   display: flex;
   flex-flow: column;
   width: 50%;
 
   trix-toolbar {
     display: none;
+  }
+}
+
+.-is-commentable .create-comment-button {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.create-comment-button {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  border-radius: 3px;
+  width: 1.2em;
+  height: 1.2em;
+  margin-left: 0.5em;
+  line-height: 1.1em;
+  cursor: pointer;
+  color: $color-smalt-blue;
+
+  &:hover {
+    color: $color-neptune;
   }
 }
 
@@ -104,4 +113,9 @@ trix-toolbar .button_group button.h1::before {
 
 trix-toolbar .button_group button.h2::before {
   content: 'H2';
+}
+
+trix-editor blockquote {
+  margin: 0;
+  padding: 1em;
 }

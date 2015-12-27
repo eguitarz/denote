@@ -3,5 +3,7 @@
   autofocus=true
   placeholder="Enter Text Here"
   config=config
-  trix-change=(route-action "save")
+  trix-change=(action "handleContentChange")
+  trix-selection-change=(action "handleSelectionChange")
 }}
+<div class="create-comment-button" {{action (route-action "newComment" lastBlockIndex)}}><i class="fa fa-plus-square"></i></div>
