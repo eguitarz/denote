@@ -1,7 +1,19 @@
-{{text-editor
-  newComment=(route-action "newComment")
-}}
-{{note-comments
-  comments=model.comments
-}}
-{{outlet}}
+<div class="note-content">
+  <div class="note-content__left-pane">
+    <input type="text"
+      class="note-title"
+      name="title"
+      placeholder="Enter title here"
+      oninput={{action (mut model.title) value="target.value"}}
+      value={{model.title}} >
+    {{text-editor
+      newComment=(route-action "newComment")
+    }}
+  </div>
+  {{note-comments
+    isOnCommenting=model.isOnCommenting
+    comments=model.comments
+    createComment=(route-action "createComment")
+  }}
+  {{outlet}}
+</div>

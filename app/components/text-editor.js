@@ -70,7 +70,7 @@ export default Ember.Component.extend({
       .on('mouseenter', ELEMENT_SELECTOR, function(event) {
         let index = $('trix-editor').find(ELEMENT_SELECTOR).index(this);
         set(trixEditor, 'lastBlockIndex', index);
-        $('.editor').addClass('-is-commentable');
+        $('#denote-app').addClass('-is-commentable');
         updateCommentButtonPosition(this);
       })
   },
@@ -78,7 +78,7 @@ export default Ember.Component.extend({
   _bindBlurEvent() {
     let trixEditor = this;
     this.$('trix-editor').on('blur', function() {
-      Ember.run.later(() => $('.editor').removeClass('-is-commentable'), 100);
+      // Ember.run.later(() => $('#denote-app').removeClass('-is-commentable'), 100);
     });
   },
 
@@ -98,14 +98,12 @@ export default Ember.Component.extend({
       let editor = event.target.editor;
       let html = editor.getDocument().toString();
       set(this, 'lastSavedAt', +moment());
-      console.log('saving', html);
       ipc.send('save-file', html);
     },
 
     handleSelectionChange(event) {
       let editor = event.target.editor;
       set(this, 'lastPosition', editor.getPosition());
-      console.log('lastPosition', this.get('lastPosition'));
     }
   }
 });

@@ -5,3 +5,14 @@
 {{else}}
   <div>No comment</div>
 {{/each}}
+
+{{ember-trix
+  class="comment-editor"
+  placeholder="Enter comment here"
+  trix-change=(action "handleCommentChange")
+  value=newCommentHTML
+}}
+<div class="comments__button-row">
+  <span class="comments__btn" {{action (route-action "createComment" newCommentHTML)}}>Done</span>
+  <span class="comments__btn">Cancel</span>
+</div>
