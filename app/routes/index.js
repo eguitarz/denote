@@ -5,6 +5,10 @@ const { isPresent, isNone, set, get, RSVP } = Ember;
 const { hash } = RSVP;
 
 export default Ember.Route.extend({
+  beforeModel() {
+    this.transitionTo('notes');
+  },
+
   model() {
     return {
       title: `Note on ${moment().format('ddd - MMM DD, YYYY')}`,

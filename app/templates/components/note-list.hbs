@@ -1,0 +1,5 @@
+{{#each notes as |note|}}
+  <div {{action selectNote note.id}}>{{note.title}}</div>
+{{else}}
+  <div>No notes availabe. Create one?</div>
+{{/each}}

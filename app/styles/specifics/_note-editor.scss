@@ -1,0 +1,9 @@
+.note-editor {
+  display: flex;
+  width: 50%;
+  border-left: 1px solid $color-concrete;
+  border-right: 1px solid $color-concrete;
+  flex-direction: column;
+  outline: 0;
+  padding: 1rem;
+}

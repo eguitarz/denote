@@ -1,0 +1,11 @@
+{{#if openedNote}}
+  <h1>{{openedNote.title}}</h1>
+  {{#each openedNote.blocks as |block|}}
+    {{content-editable
+      value=(mut block.body)
+      type="text"
+    }}
+  {{/each}}
+{{else}}
+  <div>Nothing selected</div>
+{{/if}}

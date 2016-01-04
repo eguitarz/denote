@@ -1,13 +1,6 @@
 @import "bower_components/font-awesome/scss/font-awesome";
-
-$fonts-main: "Lucida Grande", "Helvetica Neue", Helvetica, Sans;
-$color-concrete: #F3F3F3;
-$color-neptune: #78B8BA;
-$color-smalt-blue: #4F9092;
-$color-grey: #ccc;
-$color-black: #000;
-$color-mine-shaft: #333333;
-$color-catskill-white: #EEF6F7;
+@import "base/_base";
+@import "specifics/_specifics";
 
 body, html {
   padding: 0;
@@ -16,11 +9,11 @@ body, html {
   font-family: $fonts-main;
 }
 
-#denote-app {
+#denote-app, .app-wrapper {
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .editor {
@@ -182,4 +175,9 @@ trix-toolbar .button_group button.h2::before {
 trix-editor blockquote {
   margin: 0;
   padding: 1em;
+}
+
+// new
+.ember-content-editable {
+  outline: 0;
 }
