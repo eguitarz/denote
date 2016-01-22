@@ -1,48 +1,18 @@
 import Ember from 'ember';
 
 const { RSVP, get, set } = Ember;
+const { documnet } = window;
 
 export default Ember.Route.extend({
   model() {
-    let store = this.store;
+    let notes = this.store.findAll('note');
+    return RSVP.hash({notes});
+  },
 
-    store.push({
-      data: [{
-        id: 1,
-        type: 'note',
-        attributes: {
-          title: 'note 1',
-          blocks: [{
-            id: 1,
-            body: 'This is note 1 - block 1',
-            comment: 'This is comment of note 1 - block 1'
-          }, {
-            id: 2,
-            body: 'This is note 1 - block 2',
-            comment: 'This is comment of note 1 - block 2'
-          }]
-        },
-      }, {
-        id: 2,
-        type: 'note',
-        attributes: {
-          title: 'note 2',
-          blocks: [{
-            id: 1,
-            body: 'This is note 2 - block 1',
-            comment: 'This is comment of note 2 - block 1'
-          }, {
-            id: 2,
-            body: 'This is note 2 - block 2',
-            comment: 'This is comment of note 2 - block 2'
-          }]
-        },
-      }]
-    });
-
-    return {
-      notes: this.store.peekAll('note')
-    };
+  afterModel(model) {
+    let firstNote = model.notes.get('firstObject');
+    console.log('controller.model.notes', model.notes);
+    set(firstNote, 'isOpened', true);
   },
 
   actions: {
@@ -59,6 +29,15 @@ export default Ember.Route.extend({
         }
 
       });
+    },
+
+    resizeComments($component) {
+      if ($component) {
+        $component.find('.note-editor__block-row').each(function() {
+          var height = $(this).height();
+          $component.find('.note-editor__comment').css('height', height);
+        });
+      }
     }
   }
 });

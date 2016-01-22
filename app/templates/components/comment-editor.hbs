@@ -1,1 +1,11 @@
-{{yield}}
+{{#if openedNote}}
+  {{#each openedNote.blocks as |block|}}
+    <div>
+      {{html-block
+        class=(concat "comment-" block.id)
+        value=(mut block.comment)
+        type="text"
+      }}
+    </div>
+  {{/each}}
+{{/if}}

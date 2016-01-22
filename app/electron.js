@@ -3,16 +3,51 @@ const app = require('app');
 const ipc = require('ipc');
 const electronLocalshortcut = require('electron-localshortcut');
 const fs = require('fs');
+const mkdirp = require('mkdirp');
+const RSVP = require('rsvp');
+const root = `${app.getPath('home')}/dev/denote/example`;
+
 var mainWindow = null;
 
-function saveFile(event, file) {
-  const path = app.getPath('userDesktop') + '/denote-test-file'
+function saveFile(event, id, file) {
+  const path = `${root}/${id}`;
+  const filePath = `${path}/meta.json`;
+  mkdirp(path);
+
   try {
-    fs.writeFileSync(path, file);
+    fs.writeFile(filePath, file);
   } catch (error) {
     throw error;
   }
 };
+
+function loadNotes(event) {
+
+  fs.readdir(root, function(error, files) {
+    var filenames = files.filter(function(filename) {
+      return filename.match(/^\d{13}$/);
+    });
+
+    // var notes = [];
+    // var readFile = function(error, data) {
+    //   if (error) { throw error; }
+    //   notes.push(JSON.parse(data));
+    // };
+    RSVP.all(filenames.map(function(fn) {
+      return new RSVP.Promise(function(resolve, reject) {
+        fs.readFile(`${root}/${fn}/meta.json`, function(error, data) {
+          if (error) { reject(error); }
+          // notes.push(JSON.parse(data));
+          resolve(JSON.parse(data));
+        });
+      });
+    })).then(function(notes) {
+      event.returnValue = {data: notes};
+    });
+
+  });
+
+}
 
 app.on('window-all-closed', function onWindowAllClosed() {
     if (process.platform !== 'darwin') {
@@ -49,6 +84,7 @@ app.on('ready', function onReady() {
     });
 
     ipc.on('save-file', saveFile);
+    ipc.on('load-notes', loadNotes);
 });
 
 app.on('will-quit', function() {

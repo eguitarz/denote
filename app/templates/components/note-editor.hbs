@@ -1,10 +1,21 @@
 {{#if openedNote}}
-  <h1>{{openedNote.title}}</h1>
   {{#each openedNote.blocks as |block|}}
-    {{content-editable
-      value=(mut block.body)
-      type="text"
-    }}
+    <div class="note-editor__block-row">
+      {{note-block
+        class=(concat "note-editor__block block-" block.id)
+        value=(mut block.body)
+        type="html"
+
+        key-down=(action "handleHtmlBlockKeyDown" block)
+      }}
+      <div class="note-editor__comment-wrapper">
+      {{content-editable
+        class=(concat "note-editor__comment comment-" block.id)
+        value=(mut block.comment)
+        type="text"
+      }}
+    </div>
+    </div>
   {{/each}}
 {{else}}
   <div>Nothing selected</div>
