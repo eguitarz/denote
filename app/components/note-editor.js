@@ -87,11 +87,12 @@ export default Ember.Component.extend({
       let blocks = this.get('openedNote.blocks');
       let index = blocks.indexOf(block);
       let content;
+      let blockEl;
 
       let selection = window.getSelection();
       if (selection.rangeCount) {
         let selectionRange = selection.getRangeAt(0);
-        let blockEl = getBlockContainer(selectionRange.endContainer);
+        blockEl = getBlockContainer(selectionRange.endContainer);
         if (blockEl) {
           let range = selectionRange.cloneRange();
           range.selectNodeContents(blockEl);
@@ -103,6 +104,10 @@ export default Ember.Component.extend({
       blocks.insertAt(index + 1, {
         body: content
       });
+
+      Ember.run.later(() => {
+        $(blockEl).parent().next().find('.note-editor__block').focus();
+      }, 100);
     },
 
     deleteBlock(block) {

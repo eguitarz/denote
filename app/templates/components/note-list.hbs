@@ -1,6 +1,12 @@
-<div class="note-list__toolbar">{{fa-icon "plus"}} </div>
-{{#each notes as |note|}}
-  <div class="note-list__item" {{action selectNote note.id}}>{{note.title}}</div>
+<div class="note-list__toolbar" {{action createNote}}>{{fa-icon "plus"}} </div>
+{{#each sortedNotes as |note|}}
+  <div class="note-list__item" {{action selectNote note.id}}>
+    {{#if note.title}}
+      {{note.title}}
+    {{else}}
+      <span class="note-list__item-is-empty">Empty title</span>
+    {{/if}}
+  </div>
 {{else}}
   <div>No notes availabe. Create one?</div>
 {{/each}}
