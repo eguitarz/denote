@@ -1,0 +1,8 @@
+<div class="note-list__item-header">
+  <span class="note-list__item__new" {{action "create"}}>
+    <i class="fa fa-plus"></i> collection
+  </span>
+</div>
+{{#each collections as |collection|}}
+  {{yield collection}}
+{{/each}}

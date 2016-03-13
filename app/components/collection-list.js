@@ -1,18 +1,21 @@
 import Ember from 'ember';
 
+const {
+  set,
+  get
+} = Ember;
+
 export default Ember.Component.extend({
   actions: {
     create() {
-      let newNote = {
-        body: 'My new note',
+      let newCollection = {
+        name: 'My Collection',
         priority: 1,
         created: new Date(),
         updated: new Date()
       };
 
-
-      newNote.collection = this.get('currentCollection');
-      this.sendAction('createRecord', 'note', newNote);
+      this.sendAction('createRecord', 'collection', newCollection);
     }
   }
 });

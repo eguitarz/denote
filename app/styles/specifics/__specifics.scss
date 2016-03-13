@@ -1,2 +1,18 @@
 @import 'note-editor';
 @import 'note-list';
+@import 'note-viewer';
+
+.sidebar {
+  width: 20%;
+  height: 100%;
+
+  .liquid-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .liquid-child {
+    width: 100%;
+    height: 100%;
+  }
+}

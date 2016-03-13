@@ -1,6 +1,21 @@
-<div class="note-list__toolbar">{{fa-icon "plus"}} </div>
+<div class="note-list__item-header">
+  <span class="note-list__item__new" {{action "create"}}>
+    <i class="fa fa-plus"></i> note
+  </span>
+  <span class="note-list__item__back" {{action (action setMenuMode "collection")}}>
+    <i class="fa fa-arrow-left"></i>
+  </span>
+</div>
+<div class="note-list__item">
+  {{collectionName}}
+</div>
 {{#each notes as |note|}}
-  <div class="note-list__item" {{action selectNote note.id}}>{{note.title}}</div>
+  {{yield note}}
 {{else}}
-  <div>No notes availabe. Create one?</div>
+  <div class="note-list__message">
+    This collection is empty, create a new note?
+    <span class="note-list__message__new" {{action "create"}}>
+      create a note
+    </span>
+  </div>
 {{/each}}

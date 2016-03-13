@@ -1,0 +1,43 @@
+{{#side-bar
+  class="sidebar"
+  loadNotes=(route-action "loadNotes")
+  as |opt|
+}}
+  {{#liquid-if (eq 'note' opt.menuMode) class="--liquid-sidebar"}}
+
+    {{#note-list
+      class="note-list"
+      currentCollection=opt.currentCollection
+      collectionName=opt.currentCollection.name
+      notes=opt.currentCollection.notes
+      setMenuMode=(action opt.setMenuMode)
+      createRecord=(route-action "createRecord")
+      as |note|
+    }}
+      <div class="note-list__item {{if note.isSelected "-is-selected"}}" {{action (route-action "select" note)}}>
+        <div>{{note.summary}}</div>
+        <div>{{moment-from-now note.updated}}</div>
+      </div>
+    {{/note-list}}
+
+  {{else}}
+
+    {{#collection-list
+      class="note-list"
+      collections=model
+      createRecord=(route-action "createRecord")
+      as |collection|
+    }}
+      <div class="note-list__item" {{action opt.selectCollection collection}}>
+        <div>{{collection.name}}</div>
+        <div>{{moment-from-now collection.updated}}</div>
+      </div>
+    {{/collection-list}}
+
+  {{/liquid-if}}
+{{/side-bar}}
+
+{{note-viewer
+  class="note-editor"
+  note=selectedNote
+}}

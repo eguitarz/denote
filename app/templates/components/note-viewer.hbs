@@ -1,0 +1,7 @@
+{{#if note}}
+  <div class="note-viewer__delete" {{action (route-action "deleteRecord" note)}}>
+    <i class="fa fa-trash"></i>
+  </div>
+
+  {{content-editable value=note.body type="text"}}
+{{/if}}

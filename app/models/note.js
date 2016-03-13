@@ -1,42 +1,20 @@
-import Ember from 'ember';
 import DS from 'ember-data';
-import UndoStack from 'ember-undo-stack/undo-stack';
+import Ember from 'ember';
 
 const {
   computed,
   get
 } = Ember;
 
-export default DS.Model.extend(UndoStack, {
-    title: computed('blocks.firstObject.body', function() {
-      let body = get(this, 'blocks.firstObject.body');
-      if (body) {
-        return body.substr(0, 100);
-      }
-    }),
-    blocks: DS.attr(),
-    createdAt: DS.attr(),
-    updatedAt:DS.attr(),
+export default DS.Model.extend({
+  body: DS.attr('string'),
+  priority: DS.attr('number'),
+  created: DS.attr('date'),
+  updated: DS.attr('date'),
 
-    // checkpointData: computed('blocks.@each.body', function() {
-    //   console.log('computing checkpoint data');
-    //   return {
-    //     blocks: this.get('blocks')
-    //   };
-    // }),
+  summary: computed('body', function() {
+    return get(this, 'body').slice(0, 20);
+  }),
 
-    compareTo(current, last) {
-      return _.differenceBy(current, last, 'body') == '';
-    },
-
-    checkpointData: function() {
-      console.log('computing checkpoint data', this.get('blocks'));
-      return this.get('blocks');
-    }.property('blocks'),
-
-    restoreCheckpoint(data) {
-      console.log('restore checkpoint', data);
-      let blocks = data;
-      this.setProperties({ blocks });
-    }
+  collection: DS.belongsTo('collection', { async: true })
 });
