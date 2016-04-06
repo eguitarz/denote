@@ -1,8 +1,20 @@
 <div class="note-list__item-header">
-  <span class="note-list__item__new" {{action "create"}}>
+  <span class="note-list__item__new" {{action "new"}}>
     <i class="fa fa-plus"></i> collection
   </span>
 </div>
 {{#each collections as |collection|}}
   {{yield collection}}
 {{/each}}
+
+{{#if newCollection}}
+  <div class="note-list__item-unsaved">
+    {{content-editable
+      value=newCollection.name
+      type="text"
+      autofocus=true
+      maxlength=50
+      enter=(action "create" newCollection)
+    }}
+  </div>
+{{/if}}

@@ -7,7 +7,7 @@ const {
 
 export default Ember.Component.extend({
   actions: {
-    create() {
+    new() {
       let newCollection = {
         name: 'My Collection',
         priority: 1,
@@ -15,7 +15,12 @@ export default Ember.Component.extend({
         updated: new Date()
       };
 
-      this.sendAction('createRecord', 'collection', newCollection);
+      set(this, 'newCollection', newCollection);
+    },
+
+    create(collection) {
+      set(this, 'newCollection', null);
+      this.sendAction('createRecord', 'collection', collection);
     }
   }
 });

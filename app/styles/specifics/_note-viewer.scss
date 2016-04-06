@@ -1,4 +1,16 @@
-.note-viewer__delete {
-  position: absolute;
-  right: 0;
+.note-viewer__toolbar {
+  display: flex;
+  align-items: center;
+  margin: 1em 0;
+}
+
+.note-viewer__toolbar__delete {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 0 1em;
+  cursor: pointe  r;
+}
+
+.note-viewer__toolbar__type {
+  display: flex;
 }

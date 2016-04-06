@@ -4,7 +4,7 @@ export default Ember.Component.extend({
   actions: {
     create() {
       let newNote = {
-        body: 'My new note',
+        body: '',
         priority: 1,
         created: new Date(),
         updated: new Date()

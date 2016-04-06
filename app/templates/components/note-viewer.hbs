@@ -1,7 +1,21 @@
 {{#if note}}
-  <div class="note-viewer__delete" {{action (route-action "deleteRecord" note)}}>
-    <i class="fa fa-trash"></i>
+  <div class="note-viewer__toolbar">
+    <div class="note-viewer__toolbar__type">
+      <select onchange={{action "updateBlock" value="target.value"}}>
+        <option value="H1">Heading</option>
+        <option value="H2">Sub Heading</option>
+        <option value="P">Body</option>
+      </select>
+    </div>
+    <div class="note-viewer__toolbar__delete" {{action (route-action "deleteRecord" note)}}>
+      <i class="fa fa-trash"></i>
+    </div>
   </div>
-
-  {{content-editable value=note.body type="text"}}
+  {{mobiledoc-editor
+    mobiledoc=note.body
+    autofocus=true
+    spellcheck=true
+    placeholder="new note"
+    on-change=save
+  }}
 {{/if}}

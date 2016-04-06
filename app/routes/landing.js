@@ -14,6 +14,10 @@ export default Ember.Route.extend({
   },
 
   actions: {
+    save(content) {
+      console.log('save', content)
+    },
+
     loadNotes(collection) {
       return $.get(`/collection/${collection.id}/notes`).then( ({data}) => {
 
@@ -49,6 +53,7 @@ export default Ember.Route.extend({
       let record = this.store.createRecord(type, object);
 
       if(type === 'note') {
+        set(record, 'autofocus', true);
         this.send('select', record);
       }
     },
