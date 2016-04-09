@@ -37,10 +37,12 @@
   {{/liquid-if}}
 {{/side-bar}}
 
-{{note-viewer
-  class="note-editor"
-  note=selectedNote
-  autofocus=selectedNote.autofocus
+{{#if selectedNote}}
+  {{note-viewer
+    class="note-viewer"
+    note=selectedNote
+    autofocus=selectedNote.autofocus
 
-  save=(route-action "save")
-}}
+    save=(route-action "save")
+  }}
+{{/if}}

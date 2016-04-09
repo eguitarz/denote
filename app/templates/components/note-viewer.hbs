@@ -1,21 +1,43 @@
-{{#if note}}
-  <div class="note-viewer__toolbar">
-    <div class="note-viewer__toolbar__type">
-      <select onchange={{action "updateBlock" value="target.value"}}>
-        <option value="H1">Heading</option>
-        <option value="H2">Sub Heading</option>
-        <option value="P">Body</option>
-      </select>
-    </div>
-    <div class="note-viewer__toolbar__delete" {{action (route-action "deleteRecord" note)}}>
+{{#mobiledoc-editor
+  mobiledoc=(readonly note.body)
+  autofocus=true
+  spellcheck=true
+  placeholder="new note"
+  on-change=(action (mut note.body))
+  cards=cards
+  class="note-viewer__mobiledoc"
+  as |editor|
+}}
+  <div class="note-viewer__mobiledoc__toolbar">
+    <div class="note-viewer__mobiledoc__toolbar__delete" {{action (route-action "deleteRecord" note)}}>
       <i class="fa fa-trash"></i>
     </div>
+    {{#mobiledoc-section-button editor=editor for="h1"}}
+    Title
+    {{/mobiledoc-section-button}}
+    {{#mobiledoc-section-button editor=editor for="h2"}}
+    Header
+    {{/mobiledoc-section-button}}
+    {{#mobiledoc-section-button editor=editor for="p"}}
+    Body
+    {{/mobiledoc-section-button}}
+    {{#mobiledoc-section-button editor=editor for="ul"}}
+    Dotted List
+    {{/mobiledoc-section-button}}
+    {{#mobiledoc-section-button editor=editor for="ol"}}
+    Numbered List
+    {{/mobiledoc-section-button}}
+    <button {{action editor.addCard "image-card" "test"}}>Image</button>
   </div>
-  {{mobiledoc-editor
-    mobiledoc=note.body
-    autofocus=true
-    spellcheck=true
-    placeholder="new note"
-    on-change=save
-  }}
-{{/if}}
+{{/mobiledoc-editor}}
+
+<div class="note-viewer__resources-wrapper">
+  <div class="note-viewer__resources">
+      {{#each resources as |res|}}
+        <div class="note-viewer__resources__item">
+          <div>{{res.type}}</div>
+          <div>{{res.payload}}</div>
+        </div>
+      {{/each}}
+  </div>
+</div>

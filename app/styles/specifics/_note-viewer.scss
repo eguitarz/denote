@@ -1,16 +1,64 @@
-.note-viewer__toolbar {
+.note-viewer {
   display: flex;
-  align-items: center;
-  margin: 1em 0;
+  position: relative;
+  width: 80%;
+  border-left: 1px solid $color-concrete;
+  border-right: 1px solid $color-concrete;
+  flex-direction: row;
+  outline: 0;
+  cursor: text;
 }
 
-.note-viewer__toolbar__delete {
+.note-viewer__mobiledoc {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  padding: 0 1em;
+}
+
+.note-viewer__resources-wrapper {
+  display: flex;
+  position: absolute;
+  width: 20%;
+  height: 100%;
+  overflow-y: scroll;
+  border-left: 1px solid $color-catskill-white;
+}
+
+.note-viewer__resources {
+  padding: 1em;
+  flex-direction: column;
+}
+
+.mobiledoc-editor__editor-wrapper {
+  overflow-y: scroll;
+}
+
+.mobiledoc-editor__editor {
+  margin: 0;
+}
+
+.note-viewer__mobiledoc__toolbar {
+  display: flex;
+  align-items: center;
+  padding: 1em 0;
+}
+
+.note-viewer__mobiledoc__toolbar__delete {
   display: flex;
   flex-direction: row-reverse;
-  margin: 0 1em;
+  margin: 0 1em 0 0;
   cursor: pointe  r;
 }
 
-.note-viewer__toolbar__type {
+.note-viewer__mobiledoc__toolbar__type {
   display: flex;
+}
+
+.note-viewer__resources__item {
+  width: 100%;
+  border: 1px solid #cdcdcd;
+  padding: 0.3em 0.5em;
+  border-radius: 3px;
+  margin-bottom: 0.5em;
 }

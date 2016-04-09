@@ -1,21 +1,22 @@
 import Ember from 'ember';
+import createComponentCard from 'ember-mobiledoc-editor/utils/create-component-card';
 
-const { get } = Ember;
+const {
+  computed,
+  get
+} = Ember;
 
 export default Ember.Component.extend({
-  didUpdate() {
-    const autofocus = get(this, 'autofocus');
+  cards: computed(function() {
+    return [
+      createComponentCard('image-card')
+    ];
+  }),
 
-    if (autofocus) {
-      this.$('.ember-content-editable').focus();
-    }
-  },
-
-  actions: {
-    updateBlock(block) {
-      // $('.ember-content-editable').focus();
-      window.document.execCommand("formatBlock", false, block);
-      console.log('block', block)
-    },
-  }
+  resources: computed('note.body.cards', function() {
+    let cards = this.get('note.body.cards');
+    return cards.map(([type, payload]) => ({
+        type, payload
+    }));
+  })
 });

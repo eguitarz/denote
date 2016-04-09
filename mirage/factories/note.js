@@ -5,16 +5,17 @@ const updatedAt = faker.date.recent();
 
 export default Factory.extend({
   id(i) { return i; },
-  body() {
+  body(i) {
     return {
       version: '0.3.0',
       markups: [],
       atoms: [],
-      cards: [],
+      cards: [['image-card', 'Hello!']],
       sections: [
         [1, 'p', [
           [0, [], 0, faker.lorem.paragraph()]
-        ]]
+        ]],
+        [10, 0]
       ]
     };
   },
