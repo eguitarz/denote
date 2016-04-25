@@ -9,12 +9,11 @@
 
 {{#if newCollection}}
   <div class="note-list__item-unsaved">
-    {{content-editable
+    {{input
       value=newCollection.name
-      type="text"
       autofocus=true
       maxlength=50
-      enter=(action "create" newCollection)
+      focusOut=(action "create" newCollection)
     }}
   </div>
 {{/if}}
