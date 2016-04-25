@@ -1,6 +1,4 @@
 .note-list {
-  position: fixed;
-  display: flex;
   width: 100%;
   height: 100%;
   flex-direction: column;
@@ -23,13 +21,58 @@
   font-weight: 900;
   padding: 0.5em 1em;
   cursor: default;
-  min-height: 1em;
+}
 
-  div {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.note-list__collection__left {
+  display: flex;
+  width: 90%;
+  flex-direction: column;
+}
+
+.note-list__collection__right {
+  width: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  cursor: pointer;
+}
+
+.note-list__collection__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.note-list__collection {
+  @extend .note-list__item;
+  display: flex;
+  flex-direction: row;
+
+  .fa {
+    transition: 100ms all;
   }
+
+  &.-is-expanded .fa-chevron-right {
+    transform: rotate(90deg);
+  }
+}
+
+.note-list__collection__right {
+}
+
+.note-list__note {
+  @extend .note-list__item;
+  display: flex;
+  flex-direction: column;
+}
+
+.note-list__note__name {
+  @extend .note-list__collection__name;
+}
+
+.note-list__note-wrapper {
+  padding-left: 1em;
 }
 
 .note-list__item-unsaved {
@@ -65,7 +108,7 @@
   cursor: pointer;
 }
 
-.note-list__item:after {
+.note-list__item:before {
   position: absolute;
   content: ' ';
   width: 96%;

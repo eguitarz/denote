@@ -1,9 +1,12 @@
 @import 'note-list';
 @import 'note-viewer';
+@import 'collection-viewer';
 
 .sidebar {
+  position: fixed;
   width: 20%;
   height: 100%;
+  overflow-y: scroll;
 
   .liquid-container {
     width: 100%;

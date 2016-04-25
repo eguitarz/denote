@@ -28,13 +28,20 @@ export default Ember.Route.extend({
           let note = this.store.normalize('note', n);
           let storeNote = this.store.push(note);
           collection.get('notes').pushObject(storeNote);
-
-          if ( i === 0 && isNone(selectedNote)) {
-            this.send('select', storeNote);
-          }
         });
 
       });
+    },
+
+    selectNode(node) {
+      let previousNode = this.get('controller.selectedNode');
+
+      if (previousNode) {
+        previousNode.set('isSelected', false);
+      }
+
+      this.set('controller.selectedNode', node);
+      node.set('isSelected', true);
     },
 
     select(note) {

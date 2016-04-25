@@ -18,5 +18,21 @@ export default Ember.Component.extend({
     return cards.map(([type, payload]) => ({
         type, payload
     }));
-  })
+  }),
+
+  options: {
+    cursorDidChange(editor) {
+      console.log('cursor did change')
+    }
+  },
+
+  didInitAttrs() {
+    this.set('editedMobiledoc', this.get('mobiledoc'));
+  },
+
+  actions: {
+    editDoc(value) {
+      this.set('editedMobiledoc', value);
+    }
+  }
 });

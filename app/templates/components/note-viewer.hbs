@@ -1,22 +1,23 @@
 {{#mobiledoc-editor
-  mobiledoc=(readonly note.body)
+  mobiledoc=note.body
   autofocus=true
   spellcheck=true
   placeholder="new note"
   on-change=(action (mut note.body))
   cards=cards
   class="note-viewer__mobiledoc"
+  options=options
   as |editor|
 }}
   <div class="note-viewer__mobiledoc__toolbar">
     <div class="note-viewer__mobiledoc__toolbar__delete" {{action (route-action "deleteRecord" note)}}>
-      <i class="fa fa-trash"></i>
+      {{fa-icon "trash"}}
     </div>
     {{#mobiledoc-section-button editor=editor for="h1"}}
-    Title
+    H1
     {{/mobiledoc-section-button}}
     {{#mobiledoc-section-button editor=editor for="h2"}}
-    Header
+    H2
     {{/mobiledoc-section-button}}
     {{#mobiledoc-section-button editor=editor for="p"}}
     Body
@@ -33,11 +34,6 @@
 
 <div class="note-viewer__resources-wrapper">
   <div class="note-viewer__resources">
-      {{#each resources as |res|}}
-        <div class="note-viewer__resources__item">
-          <div>{{res.type}}</div>
-          <div>{{res.payload}}</div>
-        </div>
-      {{/each}}
+      {{mobiledoc-dom-renderer mobiledoc=note.body}}
   </div>
 </div>

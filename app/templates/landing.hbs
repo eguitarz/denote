@@ -1,48 +1,56 @@
-{{#side-bar
+{{#browse-panel
   class="sidebar"
+  selectCollection=(route-action "selectNode")
   loadNotes=(route-action "loadNotes")
   as |opt|
 }}
-  {{#liquid-if (eq 'note' opt.menuMode) class="--liquid-sidebar"}}
-
-    {{#note-list
-      class="note-list"
-      currentCollection=opt.currentCollection
-      collectionName=opt.currentCollection.name
-      notes=opt.currentCollection.notes
-      setMenuMode=(action opt.setMenuMode)
-      createRecord=(route-action "createRecord")
-      as |note|
-    }}
-      <div class="note-list__item {{if note.isSelected "-is-selected"}}" {{action (route-action "select" note)}}>
-        <div>{{note.summary}}</div>
-        <div>{{moment-from-now note.updated}}</div>
-      </div>
-    {{/note-list}}
-
-  {{else}}
-
-    {{#collection-list
-      class="note-list"
-      collections=model
-      createRecord=(route-action "createRecord")
-      as |collection|
-    }}
-      <div class="note-list__item" {{action opt.selectCollection collection}}>
-        <div>{{collection.name}}</div>
+  {{#collection-list
+    class="note-list"
+    collections=model
+    createRecord=(route-action "createRecord")
+    as |collection|
+  }}
+    <div class="note-list__collection
+      {{if collection.isExpanded "-is-expanded" }}
+      {{if collection.isSelected "-is-selected" }}">
+      <div class="note-list__collection__left" {{action opt.selectCollection collection}}>
+        <div class="note-list__collection__name">{{fa-icon "clone"}} {{collection.name}}</div>
         <div>{{moment-from-now collection.updated}}</div>
       </div>
-    {{/collection-list}}
+      <div class="note-list__collection__right">
+        <span {{action opt.expandCollection collection}}>{{fa-icon "chevron-right"}}</span>
+      </div>
+    </div>
+    {{#if collection.isExpanded}}
+      {{#each collection.notes as |note|}}
+        <div class="note-list__note {{if note.isSelected "-is-selected"}}" {{action (route-action "selectNode" note)}}>
+          <div class="note-list__note-wrapper">
+            {{mobiledoc-text-renderer
+              class="note-list__note__name"
+              mobiledoc=note.body
+              charLimit=50
+            }}
+            <div>{{moment-from-now note.updated}}</div>
+          </div>
+        </div>
+      {{/each}}
+    {{/if}}
+  {{/collection-list}}
+{{/browse-panel}}
 
-  {{/liquid-if}}
-{{/side-bar}}
+{{#if selectedNode}}
+  {{#if (eq selectedNode.constructor.modelName 'collection')}}
+    {{collection-viewer
+      class="collection-viewer"
+      collection=selectedNode
+    }}
+  {{else if (eq selectedNode.constructor.modelName 'note')}}
+    {{note-viewer
+      class="note-viewer"
+      note=selectedNode
+      autofocus=selectedNode.autofocus
 
-{{#if selectedNote}}
-  {{note-viewer
-    class="note-viewer"
-    note=selectedNote
-    autofocus=selectedNote.autofocus
-
-    save=(route-action "save")
-  }}
+      save=(route-action "save")
+    }}
+  {{/if}}
 {{/if}}

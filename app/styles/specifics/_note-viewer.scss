@@ -1,7 +1,9 @@
 .note-viewer {
   display: flex;
   position: relative;
+  margin-left: 20%;
   width: 80%;
+  height:100%;
   border-left: 1px solid $color-concrete;
   border-right: 1px solid $color-concrete;
   flex-direction: row;
@@ -9,11 +11,21 @@
   cursor: text;
 }
 
+.note-viewer__mobiledoc__toolbar button {
+  line-height: 1.5em;
+  margin-right: 1em;
+}
+
 .note-viewer__mobiledoc {
   display: flex;
   width: 80%;
+  height: 100%;
   flex-direction: column;
-  padding: 0 1em;
+  padding: 0;
+}
+
+.__mobiledoc-editor {
+  // font-family: $fonts-main;
 }
 
 .note-viewer__resources-wrapper {
@@ -31,17 +43,21 @@
 }
 
 .mobiledoc-editor__editor-wrapper {
-  overflow-y: scroll;
+  height: 95%;
 }
 
 .mobiledoc-editor__editor {
+  overflow-y: scroll;
+  height: 100%;
   margin: 0;
+  padding: 0 1em;
 }
 
 .note-viewer__mobiledoc__toolbar {
   display: flex;
+  height: 5%;
   align-items: center;
-  padding: 1em 0;
+  padding: 0 1em;
 }
 
 .note-viewer__mobiledoc__toolbar__delete {

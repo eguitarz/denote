@@ -1,24 +1,23 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('browse-panel', 'Integration | Component | side bar', {
+moduleForComponent('mobiledoc-dom-renderer', 'Integration | Component | mobiledoc dom renderer', {
   integration: true
 });
 
 test('it renders', function(assert) {
-
   // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });" + EOL + EOL +
+  // Handle any actions with this.on('myAction', function(val) { ... });"
 
-  this.render(hbs`{{browse-panel}}`);
+  this.render(hbs`{{mobiledoc-dom-renderer}}`);
 
   assert.equal(this.$().text().trim(), '');
 
-  // Template block usage:" + EOL +
+  // Template block usage:"
   this.render(hbs`
-    {{#browse-panel}}
+    {{#mobiledoc-dom-renderer}}
       template block text
-    {{/browse-panel}}
+    {{/mobiledoc-dom-renderer}}
   `);
 
   assert.equal(this.$().text().trim(), 'template block text');

@@ -1,0 +1,14 @@
+<h1 class="collection-viewer__title">{{collection.name}}</h1>
+<div class="collection-viewer__note-list">
+  {{#each collection.notes as |note|}}
+    <h2 class="collection-viewer__note-list__note" {{action (route-action "select" note)}}>
+      {{mobiledoc-text-renderer
+        class="collection-viewer__note-list__note__name"
+        mobiledoc=note.body
+        charLimit=100
+        padEllipsis=true
+      }}
+    </h2>
+  {{/each}}
+</div>
+{{yield}}
