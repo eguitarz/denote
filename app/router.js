@@ -6,7 +6,9 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('landing');
+  this.route('collections', function() {
+    this.route('note', { path: '/note/:note_id'});
+  });
 });
 
 export default Router;
