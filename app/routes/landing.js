@@ -44,20 +44,6 @@ export default Ember.Route.extend({
       node.set('isSelected', true);
     },
 
-    select(note) {
-      const isSelectedKey = 'isSelected';
-      let selectedNote = get(this, 'controller.selectedNote');
-      if (isPresent(selectedNote) ) {
-        set(selectedNote, isSelectedKey, false);
-      }
-
-      if (isPresent(note)) {
-        set(note, isSelectedKey, true);
-      }
-
-      set(this, 'controller.selectedNote', note);
-    },
-
     createRecord(type, object) {
       let record = this.store.createRecord(type, object);
 
