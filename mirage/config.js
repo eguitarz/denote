@@ -5,7 +5,7 @@ export default function() {
   this.get('/notes');
 
   this.get('/collections');
-  this.get('/collection/:id');
+  this.get('/collections/:id');
   this.patch('/collections/:id');
   this.get('/collection/:id/notes', (schema, request) => {
     let cid = parseInt(request.params.id);
