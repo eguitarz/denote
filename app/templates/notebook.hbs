@@ -1,6 +1,5 @@
 {{#browse-panel
   class="sidebar"
-  selectCollection=(route-action "selectNode")
   loadNotes=(route-action "loadNotes")
   as |opt|
 }}
@@ -13,7 +12,7 @@
     <div class="note-list__collection
       {{if collection.isExpanded "-is-expanded" }}
       {{if collection.isSelected "-is-selected" }}">
-      <div class="note-list__collection__left" {{action opt.selectCollection collection}}>
+      <div class="note-list__collection__left" {{action "selectCollection" collection}}>
         <div class="note-list__collection__name">{{fa-icon "clone"}} {{collection.name}}</div>
         <div>{{moment-from-now collection.updated}}</div>
       </div>

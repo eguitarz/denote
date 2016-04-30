@@ -34,6 +34,10 @@ export default Ember.Route.extend({
       });
     },
 
+    selectCollection(collection) {
+      this.transitionTo('notebook.collections', collection);
+    },
+
     selectNote(note) {
       this.transitionTo('notebook.notes', note);
     },
