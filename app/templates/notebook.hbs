@@ -23,7 +23,7 @@
     </div>
     {{#if collection.isExpanded}}
       {{#each collection.notes as |note|}}
-        <div class="note-list__note {{if note.isSelected "-is-selected"}}" {{action (route-action "selectNode" note)}}>
+        <div class="note-list__note {{if note.isSelected "-is-selected"}}" {{action "selectNote" note}}>
           <div class="note-list__note-wrapper">
             {{mobiledoc-text-renderer
               class="note-list__note__name"

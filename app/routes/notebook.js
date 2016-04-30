@@ -34,16 +34,20 @@ export default Ember.Route.extend({
       });
     },
 
-    selectNode(node) {
-      let previousNode = this.get('controller.selectedNode');
-
-      if (previousNode) {
-        previousNode.set('isSelected', false);
-      }
-
-      this.set('controller.selectedNode', node);
-      node.set('isSelected', true);
+    selectNote(note) {
+      this.transitionTo('notebook.notes', note);
     },
+
+    // selectNode(node) {
+    //   let previousNode = this.get('controller.selectedNode');
+    //
+    //   if (previousNode) {
+    //     previousNode.set('isSelected', false);
+    //   }
+    //
+    //   this.set('controller.selectedNode', node);
+    //   node.set('isSelected', true);
+    // },
 
     createRecord(type, object) {
       let record = this.store.createRecord(type, object);
